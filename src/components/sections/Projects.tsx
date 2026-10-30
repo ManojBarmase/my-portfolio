@@ -69,7 +69,7 @@ export default function Projects() {
     <section 
       id="projects" 
       ref={sectionRef} 
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-24 border-t border-black/5 dark:border-white/5 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 border-t border-black/5 dark:border-white/5 overflow-hidden"
     >
       {/* Aurora Glows */}
       <div className="absolute top-1/4 left-1/4 w-[36rem] h-[36rem] bg-fuchsia-500/15 dark:bg-fuchsia-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
@@ -126,7 +126,7 @@ export default function Projects() {
           {/* PROJECT 1: Mankray - Enterprise Procurement & VMS              */}
           {/* ============================================================== */}
           {(activeTab === "all" || activeTab === "mankray") && (
-            <div className="project-bento relative p-8 md:p-12 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-violet-500/40 dark:hover:border-violet-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
+            <div className="project-bento relative p-5 sm:p-8 md:p-12 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl sm:rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-violet-500/40 dark:hover:border-violet-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
                 {/* Left Col: Project Info */}
                 <div className="lg:col-span-7 flex flex-col justify-between">
@@ -252,7 +252,7 @@ export default function Projects() {
           {/* PROJECT 2: AI-Powered Mock Interviewer (Low-Latency AI)        */}
           {/* ============================================================== */}
           {(activeTab === "all" || activeTab === "ai") && (
-            <div className="project-bento relative p-8 md:p-12 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
+            <div className="project-bento relative p-5 sm:p-8 md:p-12 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl sm:rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
                 {/* Left Col: Project Info */}
                 <div className="lg:col-span-7 flex flex-col justify-between">

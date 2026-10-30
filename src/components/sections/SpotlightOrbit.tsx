@@ -50,8 +50,8 @@ export default function SpotlightOrbit() {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-28 sm:py-36 md:py-48 lg:py-56 bg-transparent border-y border-border-subtle/20">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[480px] md:w-[600px] h-[320px] sm:h-[480px] md:h-[600px] bg-violet-500/10 dark:bg-violet-500/5 rounded-full blur-[140px] pointer-events-none" />
+    <section className="relative min-h-[460px] sm:min-h-[560px] md:min-h-screen w-full flex items-center justify-center overflow-hidden py-12 sm:py-20 md:py-36 lg:py-48 bg-transparent border-y border-border-subtle/20">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[480px] md:w-[600px] h-[280px] sm:h-[480px] md:h-[600px] bg-violet-500/10 dark:bg-violet-500/5 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none" />
 
       <div className="relative flex items-center justify-center w-full h-full z-10 max-w-7xl mx-auto px-4">
         {/* Profile Container (Gravity Source) */}

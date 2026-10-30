@@ -157,93 +157,97 @@ export default function Experience() {
     <section 
       id="experience" 
       ref={sectionRef} 
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-24 border-t border-black/5 dark:border-white/5 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 border-t border-black/5 dark:border-white/5 overflow-hidden"
     >
       <div className="absolute top-1/4 right-1/3 w-[36rem] h-[36rem] bg-blue-500/20 dark:bg-blue-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
       <div className="absolute bottom-1/3 left-1/4 w-[32rem] h-[32rem] bg-emerald-500/20 dark:bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
 
       <div className="max-w-6xl w-full mx-auto z-10 relative">
-        <div className="mb-16">
+        <div className="mb-10 sm:mb-16">
           <p className="text-xs uppercase tracking-[0.2em] font-mono text-blue-600 dark:text-blue-400 font-semibold mb-3">
             02 / Track Record
           </p>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-foreground">
             Professional Experience.
           </h2>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-8 sm:space-y-12">
           {experiences.map((exp, idx) => (
             <div 
               key={idx}
-              className="exp-card relative p-8 md:p-10 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none"
+              className="exp-card relative p-5 sm:p-8 md:p-10 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl sm:rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-blue-500/40 dark:hover:border-blue-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none"
             >
               {/* Header Bar */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4 border-b border-black/10 dark:border-white/5 pb-8">
-                <div className="flex items-center gap-5">
-                  <div className={`w-14 h-14 rounded-2xl ${
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 sm:mb-8 gap-4 border-b border-black/10 dark:border-white/5 pb-6 sm:pb-8">
+                <div className="flex items-start sm:items-center gap-4 sm:gap-5">
+                  <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${
                     exp.accent === 'blue' 
                       ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20' 
                       : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20'
                   } flex items-center justify-center border shrink-0`}>
-                    <Briefcase size={26} />
+                    <Briefcase size={24} className="sm:w-[26px] sm:h-[26px]" />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-foreground">
                       {exp.role}
                     </h3>
-                    <div className="flex flex-wrap items-center gap-3 mt-1.5 text-sm md:text-base text-primary-muted font-medium">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-1 sm:mt-1.5 text-xs sm:text-sm md:text-base text-primary-muted font-medium">
                       <span className="font-semibold text-foreground/90">{exp.company}</span>
                       <span>•</span>
                       <span className="inline-flex items-center gap-1">
-                        <MapPin size={14} />
+                        <MapPin size={13} className="sm:w-[14px] sm:h-[14px]" />
                         {exp.location}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="px-4 py-2 bg-black/[0.03] dark:bg-white/[0.03] border border-black/10 dark:border-white/5 rounded-full text-foreground text-sm font-mono font-bold w-fit">
+                <div className="flex items-center gap-3 self-start md:self-auto">
+                  <div className="px-3.5 py-1.5 sm:px-4 sm:py-2 bg-black/[0.03] dark:bg-white/[0.03] border border-black/10 dark:border-white/5 rounded-full text-foreground text-xs sm:text-sm font-mono font-bold w-fit">
                     {exp.period}
                   </div>
                 </div>
               </div>
 
               {/* Metrics Band */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5 mb-6 sm:mb-8">
                 {exp.metrics.map((m, mIdx) => (
                   <div 
                     key={mIdx}
-                    className="p-3.5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 flex items-center gap-3"
+                    className="p-3.5 sm:p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 flex flex-col justify-between hover:border-black/15 dark:hover:border-white/10 transition-colors group/metric"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] flex items-center justify-center text-primary-muted shrink-0">
-                      <m.icon size={16} />
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-black/[0.04] dark:bg-white/[0.04] flex items-center justify-center text-primary-muted shrink-0 mb-2 group-hover/metric:text-foreground transition-colors">
+                      <m.icon size={15} />
                     </div>
                     <div>
-                      <div className="text-lg font-bold text-foreground tracking-tight">{m.value}</div>
-                      <div className="text-[11px] font-mono text-primary-muted">{m.label}</div>
+                      <div className="text-base sm:text-xl font-bold text-foreground tracking-tight whitespace-nowrap">
+                        {m.value}
+                      </div>
+                      <div className="text-[11px] sm:text-xs font-mono text-primary-muted leading-tight mt-0.5">
+                        {m.label}
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* Bullet Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 mb-6 sm:mb-8">
                 {exp.highlights.map((item, hIdx) => (
                   <div 
                     key={hIdx}
-                    className="magnetic-card p-6 bg-white dark:bg-white/[0.03] rounded-3xl border border-black/10 dark:border-white/5 group-hover:bg-blue-50/30 dark:group-hover:bg-white/[0.04] transition-all shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-none"
+                    className="magnetic-card p-4 sm:p-6 bg-white dark:bg-white/[0.03] rounded-2xl sm:rounded-3xl border border-black/10 dark:border-white/5 group-hover:bg-blue-50/30 dark:group-hover:bg-white/[0.04] transition-all shadow-[0_4px_20px_rgba(0,0,0,0.04)] dark:shadow-none"
                   >
-                    <div className="flex items-center gap-3 mb-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] flex items-center justify-center text-blue-600 dark:text-blue-400">
+                    <div className="flex items-center gap-2.5 sm:gap-3 mb-2 sm:mb-2.5">
+                      <div className="w-7 h-7 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
                         <CheckCircle2 size={16} />
                       </div>
-                      <h4 className="text-base font-bold text-foreground">
+                      <h4 className="text-sm sm:text-base font-bold text-foreground">
                         {item.title}
                       </h4>
                     </div>
-                    <p className="text-sm text-primary-muted font-normal leading-relaxed pl-10">
+                    <p className="text-xs sm:text-sm text-primary-muted font-normal leading-relaxed pl-0 sm:pl-9">
                       {item.desc}
                     </p>
                   </div>
@@ -251,16 +255,16 @@ export default function Experience() {
               </div>
 
               {/* Technologies Applied Footer */}
-              <div className="p-5 bg-black/[0.02] dark:bg-white/[0.02] rounded-2xl border border-black/10 dark:border-white/5 flex flex-col md:flex-row md:items-center gap-4">
+              <div className="p-4 sm:p-5 bg-black/[0.02] dark:bg-white/[0.02] rounded-xl sm:rounded-2xl border border-black/10 dark:border-white/5 flex flex-col md:flex-row md:items-center gap-3 sm:gap-4">
                 <div className="flex items-center gap-2 text-foreground font-semibold shrink-0">
                   <Terminal size={17} className={exp.accent === 'blue' ? "text-blue-500" : "text-emerald-500"} />
                   <span className="text-xs uppercase tracking-wider font-mono">Technologies Applied:</span>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {exp.techStack.map((tech, tIdx) => (
                     <span 
                       key={tIdx} 
-                      className="px-3 py-1.5 text-xs font-mono font-medium bg-black/[0.04] dark:bg-white/[0.03] text-foreground/80 dark:text-primary-muted border border-black/5 dark:border-white/5 rounded-lg transition-colors"
+                      className="px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs font-mono font-medium bg-black/[0.04] dark:bg-white/[0.03] text-foreground/80 dark:text-primary-muted border border-black/5 dark:border-white/5 rounded-lg transition-colors"
                     >
                       {tech}
                     </span>

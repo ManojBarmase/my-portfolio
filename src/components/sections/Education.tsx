@@ -85,18 +85,18 @@ export default function Education() {
     <section 
       id="education" 
       ref={sectionRef} 
-      className="relative min-h-[80vh] flex flex-col justify-center px-6 md:px-12 py-24 border-t border-black/5 dark:border-white/5 overflow-hidden"
+      className="relative min-h-[80vh] flex flex-col justify-center px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 border-t border-black/5 dark:border-white/5 overflow-hidden"
     >
       {/* Aurora Glows */}
       <div className="absolute top-1/4 right-1/4 w-[36rem] h-[36rem] bg-indigo-500/15 dark:bg-indigo-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
       <div className="absolute bottom-1/4 left-1/4 w-[32rem] h-[32rem] bg-rose-500/15 dark:bg-rose-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
 
       <div className="max-w-6xl w-full mx-auto z-10 relative">
-        <div className="mb-16">
+        <div className="mb-10 sm:mb-16">
           <p className="text-xs uppercase tracking-[0.2em] font-mono text-indigo-600 dark:text-indigo-400 font-semibold mb-3">
             04 / Credentials & Foundations
           </p>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-foreground">
             Education & Certifications.
           </h2>
         </div>
@@ -104,15 +104,15 @@ export default function Education() {
         {/* Bento Grid Showcase */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-fr">
           {/* BENTO 1: B.Tech Degree (Spans 6 Columns) */}
-          <div className="edu-bento magnetic-card md:col-span-6 relative p-8 md:p-10 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-[2.5rem] flex flex-col justify-between overflow-hidden backdrop-blur-2xl group hover:border-indigo-500/40 dark:hover:border-indigo-500/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none min-h-[380px] h-full">
+          <div className="edu-bento magnetic-card md:col-span-6 relative p-5 sm:p-8 md:p-10 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl sm:rounded-[2.5rem] flex flex-col justify-between overflow-hidden backdrop-blur-2xl group hover:border-indigo-500/40 dark:hover:border-indigo-500/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none min-h-[380px] h-full">
             <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-indigo-500/20 transition-all duration-700" />
             
             <div>
-              <div className="flex items-center justify-between mb-8">
-                <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20">
-                  <GraduationCap size={28} />
+              <div className="flex items-center justify-between mb-6 sm:mb-8">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center border border-indigo-500/20 shrink-0">
+                  <GraduationCap size={26} />
                 </div>
-                <div className="px-4 py-2 bg-indigo-500/10 dark:bg-white/[0.03] border border-indigo-500/20 dark:border-white/5 rounded-full text-indigo-800 dark:text-indigo-400 text-sm font-mono font-bold">
+                <div className="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-500/10 dark:bg-white/[0.03] border border-indigo-500/20 dark:border-white/5 rounded-full text-indigo-800 dark:text-indigo-400 text-xs sm:text-sm font-mono font-bold">
                   2020 – 2024
                 </div>
               </div>
@@ -140,16 +140,16 @@ export default function Education() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-black/10 dark:border-white/5 pt-6 mt-auto">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-black/10 dark:border-white/5 pt-5 sm:pt-6 mt-auto">
               <div className="flex items-center gap-2.5">
-                <LibraryBig size={19} className="text-primary-muted" />
-                <span className="text-sm font-medium text-foreground">
+                <LibraryBig size={18} className="text-primary-muted shrink-0" />
+                <span className="text-xs sm:text-sm font-medium text-foreground">
                   Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <Award size={19} className="text-amber-500" />
-                <span className="text-base font-bold text-foreground font-mono">
+              <div className="flex items-center gap-2 shrink-0">
+                <Award size={18} className="text-amber-500 shrink-0" />
+                <span className="text-sm sm:text-base font-bold text-foreground font-mono">
                   CGPA: 7.57<span className="text-primary-muted text-xs">/10</span>
                 </span>
               </div>
@@ -157,15 +157,15 @@ export default function Education() {
           </div>
 
           {/* BENTO 2: Verified Certifications (Spans 6 Columns) */}
-          <div className="edu-bento magnetic-card md:col-span-6 relative p-8 md:p-10 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-[2.5rem] flex flex-col justify-between overflow-hidden backdrop-blur-2xl group hover:border-rose-500/40 dark:hover:border-rose-500/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none min-h-[380px] h-full">
+          <div className="edu-bento magnetic-card md:col-span-6 relative p-5 sm:p-8 md:p-10 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl sm:rounded-[2.5rem] flex flex-col justify-between overflow-hidden backdrop-blur-2xl group hover:border-rose-500/40 dark:hover:border-rose-500/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none min-h-[380px] h-full">
             <div className="absolute -top-20 -right-20 w-64 h-64 bg-rose-500/10 dark:bg-rose-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-rose-500/20 transition-all duration-700" />
             
             <div>
-              <div className="flex items-center justify-between mb-8">
-                <div className="w-14 h-14 rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center border border-rose-500/20">
-                  <Award size={28} />
+              <div className="flex items-center justify-between mb-6 sm:mb-8">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center border border-rose-500/20 shrink-0">
+                  <Award size={26} />
                 </div>
-                <div className="px-4 py-2 bg-rose-500/10 dark:bg-white/[0.03] border border-rose-500/20 dark:border-white/5 rounded-full text-rose-800 dark:text-rose-400 text-sm font-mono font-bold">
+                <div className="px-3 py-1.5 sm:px-4 sm:py-2 bg-rose-500/10 dark:bg-white/[0.03] border border-rose-500/20 dark:border-white/5 rounded-full text-rose-800 dark:text-rose-400 text-xs sm:text-sm font-mono font-bold">
                   Industry Certified
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function Education() {
               <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-1.5">
                 Professional Certifications
               </h3>
-              <p className="text-lg font-semibold text-rose-600 dark:text-rose-400 mb-6">
+              <p className="text-base sm:text-lg font-semibold text-rose-600 dark:text-rose-400 mb-6">
                 Verified Technical Accreditations
               </p>
 
@@ -181,30 +181,30 @@ export default function Education() {
                 {certifications.map((cert, cIdx) => (
                   <div 
                     key={cIdx}
-                    className="p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 hover:border-rose-500/30 transition-colors"
+                    className="p-4 sm:p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 hover:border-rose-500/30 transition-colors"
                   >
-                    <div className="flex items-start justify-between gap-3 mb-1.5">
-                      <div className="flex items-center gap-2">
-                        <Code2 size={16} className={cert.color} />
-                        <h4 className="text-base font-bold text-foreground">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 mb-2">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <Code2 size={16} className={`${cert.color} shrink-0`} />
+                        <h4 className="text-sm sm:text-base font-bold text-foreground tracking-tight">
                           {cert.title}
                         </h4>
                       </div>
-                      <span className={`text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full border ${cert.bgBadge} shrink-0`}>
+                      <span className={`text-[10px] sm:text-[11px] font-mono font-semibold px-2.5 py-0.5 rounded-full border ${cert.bgBadge} w-fit shrink-0 self-start sm:self-auto`}>
                         {cert.badge}
                       </span>
                     </div>
 
-                    <div className="flex items-center gap-3 text-xs text-primary-muted font-medium mb-2 pl-6">
-                      <span className="font-semibold text-foreground/80">{cert.organization}</span>
-                      <span>•</span>
+                    <div className="flex flex-wrap items-center gap-2 text-xs text-primary-muted font-medium mb-2 sm:pl-6">
+                      <span className="font-semibold text-foreground/90">{cert.organization}</span>
+                      <span className="text-primary-muted/40">•</span>
                       <span className="inline-flex items-center gap-1 font-mono">
                         <Calendar size={12} />
                         {cert.date}
                       </span>
                     </div>
 
-                    <p className="text-xs text-primary-muted leading-relaxed pl-6">
+                    <p className="text-xs text-primary-muted leading-relaxed sm:pl-6">
                       {cert.desc}
                     </p>
                   </div>
@@ -212,12 +212,12 @@ export default function Education() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-t border-black/10 dark:border-white/5 pt-6 mt-auto">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-t border-black/10 dark:border-white/5 pt-5 sm:pt-6 mt-auto">
               <span className="text-xs font-mono text-primary-muted">
                 Continuous Technical Advancement
               </span>
               <div className="flex items-center gap-2">
-                <CheckCircle2 size={18} className="text-emerald-500" />
+                <CheckCircle2 size={17} className="text-emerald-500 shrink-0" />
                 <span className="text-xs font-bold text-foreground uppercase tracking-wider font-mono">
                   Applied Production Mastery
                 </span>

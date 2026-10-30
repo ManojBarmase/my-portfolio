@@ -1,8 +1,10 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ==============================================================================
+# Enterprise-Grade .gitignore for Next.js 16+ / React 19 / TypeScript Portfolio
+# ==============================================================================
 
-# dependencies
-/node_modules
-/.pnp
+# --- Node & Dependencies ---
+node_modules/
+/.pnp/
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -10,34 +12,93 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
-/.next/
+# --- Next.js Build & Outputs ---
+.next/
 /out/
+/build/
+/dist/
+/.turbo/
 
-# production
-/build
+# --- Environment & Secret Security (NEVER COMMIT SECRETS) ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env*.local
+*.env.backup
 
-# misc
-.DS_Store
+# Explicit exception: Allow sanitized example templates
+!.env.example
+!.env.template
+
+# --- Security Certificates & Keys ---
 *.pem
+*.key
+*.cert
+*.crt
+*.pfx
+*.p12
+*.keystore
+id_rsa*
+secrets.json
+credentials.json
 
-# debug
+# --- Testing & Coverage ---
+/coverage/
+/.nyc_output/
+*.lcov
+
+# --- Logs & Diagnostics ---
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
-.env*.local
-!.env.example
-
-# vercel
-.vercel
-
-# typescript
+# --- TypeScript Build Info ---
 *.tsbuildinfo
 next-env.d.ts
+
+# --- Vercel & Deployment Tooling ---
+.vercel
+
+# --- Operating System Artifacts ---
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+
+# Linux
+*~
+.directory
+
+# --- IDE & Editor Artifacts ---
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+
+# --- AI & Agent Workspace Directories ---
+.gemini/
+.claude/
+.cursor/
+.codeium/

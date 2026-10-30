@@ -77,7 +77,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 pt-28 pb-16 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-12 pt-24 sm:pt-28 pb-12 sm:pb-16 overflow-hidden"
     >
       {/* Ambient Aurora Background Glows */}
       <div className="absolute top-1/4 left-1/4 w-[32rem] h-[32rem] bg-violet-500/20 dark:bg-violet-500/10 rounded-full blur-[130px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
@@ -170,7 +170,7 @@ export default function Hero() {
 
           {/* Secondary CTA */}
           <a
-            href="/Manoj_Barmase_Resume.pdf"
+            href="/Manoj_Barmase_FullStack_AI_Resume.pdf"
             download="Manoj_Barmase_Resume.pdf"
             className="magnetic-interactive group relative inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-white/70 dark:bg-white/[0.03] text-foreground font-semibold text-base md:text-lg border border-black/15 dark:border-white/10 rounded-2xl hover:bg-black/5 dark:hover:bg-white/10 hover:border-black/25 dark:hover:border-white/20 transition-all shadow-sm dark:shadow-none backdrop-blur-md cursor-pointer"
           >

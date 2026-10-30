@@ -123,39 +123,39 @@ export default function About() {
     <section 
       id="about" 
       ref={sectionRef} 
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-24 border-t border-black/10 dark:border-white/5 overflow-hidden bg-gray-50/50 dark:bg-transparent"
+      className="relative min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-12 py-16 sm:py-20 md:py-24 border-t border-black/10 dark:border-white/5 overflow-hidden bg-gray-50/50 dark:bg-transparent"
     >
       {/* Ambient Aurora Glows */}
       <div className="absolute top-1/3 right-1/4 w-[32rem] h-[32rem] bg-fuchsia-400/25 dark:bg-fuchsia-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-multiply dark:mix-blend-normal" />
       <div className="absolute bottom-1/4 left-1/4 w-[32rem] h-[32rem] bg-cyan-400/25 dark:bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-multiply dark:mix-blend-normal" />
 
       <div className="max-w-6xl w-full mx-auto z-10 relative">
-        <div className="mb-14">
+        <div className="mb-10 sm:mb-14">
           <p className="text-xs uppercase tracking-[0.2em] font-mono text-violet-600 dark:text-violet-400 font-bold mb-3">
             01 / Professional Profile
           </p>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-gray-900 dark:text-foreground">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter text-gray-900 dark:text-foreground">
             Engineering & Technical Mastery.
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
           {/* Main Professional Summary Card (Spans 8 columns) */}
-          <div className="bento-card md:col-span-8 relative p-8 md:p-10 bg-white/80 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl flex flex-col justify-between overflow-hidden backdrop-blur-2xl group hover:border-violet-500/40 dark:hover:border-violet-500/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none min-h-[340px]">
+          <div className="bento-card md:col-span-8 relative p-5 sm:p-8 md:p-10 bg-white/80 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl flex flex-col justify-between overflow-hidden backdrop-blur-2xl group hover:border-violet-500/40 dark:hover:border-violet-500/30 transition-all duration-300 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none min-h-[340px]">
             <div className="absolute -top-24 -left-24 w-72 h-72 bg-violet-500/15 dark:bg-violet-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-violet-500/25 transition-all duration-700" />
             
             <div>
-              <div className="flex items-center justify-between z-10 mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-violet-100 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center border border-violet-500/20">
-                  <Sparkles size={22} />
+              <div className="flex flex-wrap items-center justify-between gap-3 z-10 mb-6">
+                <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-violet-100 dark:bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center border border-violet-500/20 shrink-0">
+                  <Sparkles size={20} className="sm:w-[22px] sm:h-[22px]" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.03] text-xs font-mono font-semibold text-primary-muted border border-black/5 dark:border-white/5">
-                    <Clock size={13} className="text-violet-500" />
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 sm:py-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.03] text-xs font-mono font-semibold text-primary-muted border border-black/5 dark:border-white/5 whitespace-nowrap shrink-0">
+                    <Clock size={13} className="text-violet-500 shrink-0" />
                     15+ Months Exp
                   </span>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/[0.04] dark:bg-white/[0.03] text-xs font-mono font-semibold text-primary-muted border border-black/5 dark:border-white/5">
-                    <MapPin size={13} className="text-cyan-500" />
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 sm:py-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.03] text-xs font-mono font-semibold text-primary-muted border border-black/5 dark:border-white/5 whitespace-nowrap shrink-0">
+                    <MapPin size={13} className="text-cyan-500 shrink-0" />
                     Pune, India
                   </span>
                 </div>
@@ -180,7 +180,7 @@ export default function About() {
           </div>
 
           {/* Quick Metrics / Philosophy Card (Spans 4 columns) */}
-          <div className="bento-card md:col-span-4 relative p-8 bg-white/80 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl flex flex-col justify-between overflow-hidden backdrop-blur-xl group hover:border-cyan-500/30 transition-all shadow-sm dark:shadow-none min-h-[340px]">
+          <div className="bento-card md:col-span-4 relative p-5 sm:p-8 bg-white/80 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl flex flex-col justify-between overflow-hidden backdrop-blur-xl group hover:border-cyan-500/30 transition-all shadow-sm dark:shadow-none min-h-[340px]">
             <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-cyan-500/10 dark:bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
             
             <div className="flex items-center justify-between mb-6">
@@ -221,7 +221,7 @@ export default function About() {
           {skillCategories.map((cat, i) => (
             <div
               key={i}
-              className="bento-card magnetic-card md:col-span-6 lg:col-span-3 relative p-6 bg-white/70 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl flex flex-col justify-between overflow-hidden backdrop-blur-xl group hover:border-violet-500/30 transition-all shadow-sm dark:shadow-none min-h-[280px]"
+              className="bento-card magnetic-card md:col-span-6 lg:col-span-3 relative p-5 sm:p-6 bg-white/70 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-3xl flex flex-col justify-between overflow-hidden backdrop-blur-xl group hover:border-violet-500/30 transition-all shadow-sm dark:shadow-none min-h-[280px]"
             >
               <div>
                 <div className="flex items-center justify-between mb-5">
@@ -250,7 +250,7 @@ export default function About() {
           ))}
 
           {/* Enterprise Security & Architecture Banner */}
-          <div className="bento-card md:col-span-12 relative p-6 bg-white/80 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between backdrop-blur-xl group hover:border-emerald-500/30 transition-all gap-4">
+          <div className="bento-card md:col-span-12 relative p-5 sm:p-6 bg-white/80 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-2xl flex flex-col md:flex-row md:items-center justify-between backdrop-blur-xl group hover:border-emerald-500/30 transition-all gap-4">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
                 <ShieldCheck size={24} />

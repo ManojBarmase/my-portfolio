@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
@@ -108,9 +109,23 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={closeMenu}
-          className="text-foreground font-semibold tracking-tighter text-lg"
+          className="group flex items-center gap-2.5 text-foreground font-semibold tracking-tighter text-lg focus:outline-none"
+          aria-label="Manoj Barmase - Full Stack Developer"
         >
-          MB<span className="text-primary-muted">.</span>
+          <div className="relative w-8 h-8 md:w-9 md:h-9 rounded-xl overflow-hidden border border-black/10 dark:border-white/10 bg-black/[0.03] dark:bg-white/[0.04] shadow-sm group-hover:scale-105 group-hover:border-violet-500/40 transition-all duration-300">
+            <Image
+              src="/icon.png"
+              alt="Manoj Barmase Logo"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 32px, 36px"
+            />
+          </div>
+          <span className="font-bold tracking-tight text-base md:text-lg">
+            Manoj<span className="hidden sm:inline"> Barmase</span>
+            <span className="text-violet-500">.</span>
+          </span>
         </Link>
 
         {/* Desktop Navigation Links */}
