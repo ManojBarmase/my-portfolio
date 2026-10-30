@@ -51,13 +51,20 @@ body {
   border-radius: 10px;
 }
 
-/* src/app/globals.css */
-/* Hide basic cursor */
-*, *::before, *::after {
-  cursor: none !important;
+/* Visible Focus Rings for WCAG 2.1 AA Keyboard Accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
-/* src/app/globals.css - Add to the end */
+/* Hide basic cursor only on fine pointer devices (desktops/mice) */
+@media (pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}
+
+/* Marquee Animation */
 @keyframes marquee {
   0% { transform: translateX(0%); }
   100% { transform: translateX(-50%); } /* Shifts half the container width */
@@ -74,6 +81,36 @@ body {
   animation-play-state: paused;
 }
 
-html {
-  scroll-behavior: smooth;
+/* WCAG 2.1 AA Reduced Motion Support across CSS keyframes and animated triggers */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .animate-ping,
+  .animate-pulse {
+    animation: none !important;
+  }
+
+  /* Ensure GSAP animated elements and ScrollTrigger targets remain visible */
+  .hero-entry,
+  .bento-card,
+  .exp-card,
+  .project-card,
+  .project-bento,
+  .edu-bento,
+  .contact-bento {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

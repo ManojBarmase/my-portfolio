@@ -9,7 +9,7 @@ import Contact from "@/components/sections/Contact";
 
 export default function Home() {
   return (
-    <main className="flex flex-col min-h-screen">
+    <main id="main-content" tabIndex={-1} className="flex flex-col min-h-screen outline-none">
       <Navbar />
       <Hero />
       <SpotlightOrbit />

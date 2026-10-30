@@ -1,12 +1,20 @@
 "use client";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import dynamic from "next/dynamic";
 import { 
-  ExternalLink, LayoutGrid, Database, 
-  Lock, Activity, Terminal 
+  ExternalLink, 
+  Layers, 
+  Database, 
+  Lock, 
+  Cpu, 
+  Zap, 
+  ShieldCheck, 
+  FileText, 
+  Activity,
+  Terminal,
+  ArrowUpRight
 } from "lucide-react";
 import { magneticHelper } from "@/lib/utils";
 import Image from "next/image";
@@ -15,27 +23,26 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const ThreeScene = dynamic(() => import("../ui/ThreeScene"), { ssr: false });
-
-// Custom Github Icon to avoid Lucide package errors
+// Custom Github Icon matching Lucide aesthetic
 const GithubIcon = ({ size = 20 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.03c3.15-.38 6.5-1.4 6.5-7.17A5.05 5.05 0 0 0 19 4.78a4.6 4.6 0 0 0-.1-3.2s-1.3-.4-4.2 1.6a14.2 14.2 0 0 0-7.8 0c-2.9-2-4.2-1.6-4.2-1.6a4.6 4.6 0 0 0-.1 3.2A5.05 5.05 0 0 0 3 7.82c0 5.76 3.35 6.78 6.5 7.16A4.8 4.8 0 0 0 8.5 18v4"></path>
+    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.03c3.15-.38 6.5-1.4 6.5-7.17A5.05 5.05 0 0 0 19 4.78a4.6 4.6 0 0 0-.1-3.2s-1.3-.4-4.2 1.6a14.2 14.2 0 0 0-7.8 0c-2.9-2-4.2-1.6a4.6 4.6 0 0 0-.1 3.2A5.05 5.05 0 0 0 3 7.82c0 5.76 3.35 6.78 6.5 7.16A4.8 4.8 0 0 0 8.5 18v4"></path>
   </svg>
 );
 
 export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState<"all" | "mankray" | "ai">("all");
 
   useGSAP(() => {
-    const cards = gsap.utils.toArray('.project-bento');
+    const cards = gsap.utils.toArray<HTMLElement>('.project-bento');
     
-    cards.forEach((card: any) => {
+    cards.forEach((card) => {
       gsap.from(card, {
         opacity: 0,
-        y: 60,
-        scale: 0.95,
-        duration: 1,
+        y: 50,
+        scale: 0.96,
+        duration: 0.9,
         ease: "power3.out",
         scrollTrigger: {
           trigger: card,
@@ -45,278 +52,355 @@ export default function Projects() {
       });
     });
 
+    const cleanups: (() => void)[] = [];
     if (sectionRef.current) {
-      const magneticCards = sectionRef.current.querySelectorAll('.magnetic-card');
-      magneticCards.forEach((el) => magneticHelper(el as HTMLElement));
+      const magneticCards = sectionRef.current.querySelectorAll<HTMLElement>('.magnetic-card, .magnetic-interactive');
+      magneticCards.forEach((el) => {
+        cleanups.push(magneticHelper(el));
+      });
     }
+
+    return () => {
+      cleanups.forEach((cleanup) => cleanup());
+    };
   }, { scope: sectionRef });
 
   return (
     <section 
       id="projects" 
       ref={sectionRef} 
-      className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-16 border-t border-black/5 dark:border-white/5 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-24 border-t border-black/5 dark:border-white/5 overflow-hidden"
     >
-      {/* 1. Seamless WebGL Background */}
-      <ThreeScene />
-
-      {/* 2. Vibrant Aurora Glows (Fuchsia & Violet for the Project aesthetic) */}
-      <div className="absolute top-1/4 left-1/4 w-[35rem] h-[35rem] bg-fuchsia-500/20 dark:bg-fuchsia-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
-      <div className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-violet-500/20 dark:bg-violet-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
+      {/* Aurora Glows */}
+      <div className="absolute top-1/4 left-1/4 w-[36rem] h-[36rem] bg-fuchsia-500/15 dark:bg-fuchsia-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
+      <div className="absolute bottom-1/4 right-1/4 w-[32rem] h-[32rem] bg-violet-500/15 dark:bg-violet-500/10 rounded-full blur-[140px] pointer-events-none z-0 mix-blend-screen dark:mix-blend-normal" />
 
       <div className="max-w-6xl w-full mx-auto z-10 relative">
-        
-        {/* Section Header */}
-        <div className="mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] font-mono text-fuchsia-600 dark:text-fuchsia-400 font-semibold mb-3">
-            03 / Flagship Build
-          </p>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground">
-            Featured Work.
-          </h2>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] font-mono text-fuchsia-600 dark:text-fuchsia-400 font-semibold mb-3">
+              03 / Flagship Architectures
+            </p>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-foreground">
+              Featured Work.
+            </h2>
+          </div>
+
+          {/* Quick Filter Pills */}
+          <div className="flex items-center gap-2 p-1.5 rounded-full bg-black/[0.04] dark:bg-white/[0.03] border border-black/10 dark:border-white/5 w-fit">
+            <button
+              onClick={() => setActiveTab("all")}
+              className={`px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all ${
+                activeTab === "all" 
+                  ? "bg-foreground text-background shadow-md" 
+                  : "text-primary-muted hover:text-foreground"
+              }`}
+            >
+              All Flagships (2)
+            </button>
+            <button
+              onClick={() => setActiveTab("mankray")}
+              className={`px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all ${
+                activeTab === "mankray" 
+                  ? "bg-foreground text-background shadow-md" 
+                  : "text-primary-muted hover:text-foreground"
+              }`}
+            >
+              Enterprise VMS
+            </button>
+            <button
+              onClick={() => setActiveTab("ai")}
+              className={`px-4 py-1.5 rounded-full text-xs font-mono font-semibold transition-all ${
+                activeTab === "ai" 
+                  ? "bg-foreground text-background shadow-md" 
+                  : "text-primary-muted hover:text-foreground"
+              }`}
+            >
+              Low-Latency AI
+            </button>
+          </div>
         </div>
 
-        {/* Apple-Style Bento Grid Showcase */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-auto">
-          
-          {/* ==========================================
-              BENTO 1: The Main Spotlight (Title & Links)
-              Spans 7 columns.
-              ========================================== */}
-          <div className="project-bento md:col-span-7 relative p-8 md:p-10 bg-white/60 dark:bg-white/[0.02] border border-black/15 dark:border-white/5 rounded-[2.5rem] flex flex-col justify-between overflow-hidden backdrop-blur-2xl group hover:border-fuchsia-500/40 dark:hover:border-fuchsia-500/30 transition-colors shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none min-h-[400px]">
-            <div className="absolute -top-20 -left-20 w-64 h-64 bg-fuchsia-500/10 dark:bg-fuchsia-500/5 rounded-full blur-3xl pointer-events-none group-hover:bg-fuchsia-500/20 transition-all duration-700" />
-            
-            <div className="z-10">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400 flex items-center justify-center border border-fuchsia-500/20">
-                  <LayoutGrid size={24} />
+        <div className="space-y-16">
+          {/* ============================================================== */}
+          {/* PROJECT 1: Mankray - Enterprise Procurement & VMS              */}
+          {/* ============================================================== */}
+          {(activeTab === "all" || activeTab === "mankray") && (
+            <div className="project-bento relative p-8 md:p-12 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-violet-500/40 dark:hover:border-violet-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
+                {/* Left Col: Project Info */}
+                <div className="lg:col-span-7 flex flex-col justify-between">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3 mb-5">
+                      <div className="w-11 h-11 rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 flex items-center justify-center border border-violet-500/20">
+                        <Layers size={22} />
+                      </div>
+                      <span className="text-xs font-mono font-bold text-violet-700 dark:text-violet-300 bg-violet-500/10 dark:bg-white/[0.03] px-3.5 py-1.5 rounded-full border border-violet-500/20 dark:border-white/5">
+                        Enterprise MERN & VMS
+                      </span>
+                      <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                        5 Hierarchical RBAC Roles
+                      </span>
+                    </div>
+
+                    <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+                      Mankray — Enterprise Procurement & VMS
+                    </h3>
+                    
+                    <p className="text-base md:text-lg text-primary-muted font-normal leading-relaxed mb-6">
+                      Architected an enterprise-grade Procurement System using the MERN stack to centralize vendor data, manage complex contract lifecycles, and automate purchasing workflows. Designed with normalized schema integrity, sub-second query execution, and comprehensive spend auditing.
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <a 
+                      href="https://mankray-app.vercel.app" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="magnetic-interactive flex items-center gap-2 px-6 py-3 bg-foreground text-background font-bold text-sm rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md"
+                    >
+                      <ExternalLink size={17} />
+                      Live Application
+                    </a>
+                    <a 
+                      href="https://github.com/ManojBarmase/mankray-procurement-vms" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="magnetic-interactive flex items-center gap-2 px-6 py-3 bg-black/[0.03] dark:bg-white/[0.03] text-foreground font-bold text-sm border border-black/10 dark:border-white/10 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                    >
+                      <GithubIcon size={17} />
+                      Source Code
+                    </a>
+                  </div>
                 </div>
-                <span className="text-sm font-mono font-bold text-fuchsia-700 dark:text-fuchsia-400 bg-fuchsia-500/10 dark:bg-white/[0.03] px-3 py-1.5 rounded-full border border-fuchsia-500/20 dark:border-white/5">
-                  SaaS Dashboard
+
+                {/* Right Col: Interactive Visual Mockup */}
+                <div className="lg:col-span-5 relative bg-black/[0.03] dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden shadow-2xl group/img aspect-[16/11] flex flex-col">
+                  {/* Window Bar */}
+                  <div className="h-8 border-b border-black/5 dark:border-white/5 flex items-center px-4 gap-2 bg-black/[0.02] dark:bg-white/[0.02] shrink-0">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                    <span className="text-[11px] font-mono text-primary-muted/60 ml-2">mankray-app.vercel.app</span>
+                  </div>
+                  <div className="relative flex-1 w-full bg-black/5 dark:bg-black/40 overflow-hidden">
+                    <Image 
+                      src="/Mankray-dashboard.png"
+                      alt="Mankray Enterprise Procurement Dashboard"
+                      fill
+                      className="object-cover object-top transition-transform duration-500 group-hover/img:scale-105" 
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      quality={95}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Architecture Deep Dive Bento Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-black/10 dark:border-white/5">
+                <div className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5">
+                  <div className="flex items-center gap-2.5 text-foreground font-bold mb-2">
+                    <Lock size={18} className="text-violet-500" />
+                    <span>Granular RBAC Security</span>
+                  </div>
+                  <p className="text-xs text-primary-muted leading-relaxed font-normal">
+                    Engineered secure REST API endpoints with granular Role-Based Access Control enforcing permission barriers across 5 hierarchical roles (Admin, Procurement Officer, Vendor, Auditor, Manager).
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5">
+                  <div className="flex items-center gap-2.5 text-foreground font-bold mb-2">
+                    <Database size={18} className="text-emerald-500" />
+                    <span>Optimized MongoDB Pipelines</span>
+                  </div>
+                  <p className="text-xs text-primary-muted leading-relaxed font-normal">
+                    Optimized database aggregation queries and indexing strategies, eliminating N+1 query bottlenecks and safeguarding transaction integrity across heavy procurement logs.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5">
+                  <div className="flex items-center gap-2.5 text-foreground font-bold mb-2">
+                    <Activity size={18} className="text-cyan-500" />
+                    <span>Real-Time Spend Tracking</span>
+                  </div>
+                  <p className="text-xs text-primary-muted leading-relaxed font-normal">
+                    Built dynamic analytics dashboards providing real-time procurement spend tracking, budget thresholds, and automated alerting pipelines for impending contract expirations.
+                  </p>
+                </div>
+              </div>
+
+              {/* Technologies Applied */}
+              <div className="mt-5 pt-4 border-t border-black/5 dark:border-white/5 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-semibold text-primary-muted mr-2 flex items-center gap-1.5">
+                  <Terminal size={14} className="text-violet-500" />
+                  Stack:
                 </span>
+                {["MongoDB", "Express.js", "React.js", "Node.js", "Vite", "Tailwind CSS", "RBAC", "REST APIs"].map((tech, i) => (
+                  <span 
+                    key={i} 
+                    className="px-3 py-1 text-xs font-mono font-medium rounded-lg bg-black/[0.04] dark:bg-white/[0.03] text-foreground/80 dark:text-primary-muted border border-black/5 dark:border-white/5"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
-              
-              <h3 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
-                Product Management Software.
-              </h3>
-              <p className="text-lg md:text-xl text-primary-muted font-medium leading-relaxed max-w-xl mb-10">
-                A full-stack agile dashboard engineered to streamline task tracking, states, and team collaboration at scale.
-              </p>
             </div>
+          )}
 
-            <div className="flex flex-wrap items-center gap-4 z-10 mt-auto">
-              <a 
-                href="https://task-pink-seven.vercel.app/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="magnetic interactive flex items-center gap-2 px-6 py-3 bg-foreground text-background font-bold rounded-xl hover:scale-105 transition-transform duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_20px_rgba(255,255,255,0.05)]">
-                <ExternalLink size={18} />
-                Live Application
-              </a>
-              <a 
-               href="https://github.com/ManojBarmase/Task" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               className="magnetic interactive flex items-center gap-2 px-6 py-3 bg-white/50 dark:bg-white/[0.03] text-foreground font-bold border border-black/15 dark:border-white/10 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors shadow-sm dark:shadow-none">
-                <GithubIcon size={18} />
-                Source Code
-              </a>
-            </div>
-          </div>
+          {/* ============================================================== */}
+          {/* PROJECT 2: AI-Powered Mock Interviewer (Low-Latency AI)        */}
+          {/* ============================================================== */}
+          {(activeTab === "all" || activeTab === "ai") && (
+            <div className="project-bento relative p-8 md:p-12 bg-white/75 dark:bg-white/[0.02] border border-black/10 dark:border-white/5 rounded-[2.5rem] flex flex-col overflow-hidden backdrop-blur-2xl group hover:border-cyan-500/40 dark:hover:border-cyan-500/30 transition-all shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
+                {/* Left Col: Project Info */}
+                <div className="lg:col-span-7 flex flex-col justify-between">
+                  <div>
+                    <div className="flex flex-wrap items-center gap-3 mb-5">
+                      <div className="w-11 h-11 rounded-2xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center border border-cyan-500/20">
+                        <Cpu size={22} />
+                      </div>
+                      <span className="text-xs font-mono font-bold text-cyan-700 dark:text-cyan-300 bg-cyan-500/10 dark:bg-white/[0.03] px-3.5 py-1.5 rounded-full border border-cyan-500/20 dark:border-white/5">
+                        Low-Latency AI Architecture
+                      </span>
+                      <span className="text-xs font-mono text-violet-600 dark:text-violet-400 font-semibold bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">
+                        Groq LPU Acceleration (&lt;400ms TTFT)
+                      </span>
+                    </div>
 
-          {/* ==========================================
-              BENTO 2: Abstract Wireframe / Visual
-              Spans 5 columns.
-              ========================================== */}
-         {/* ==========================================
-              BENTO 2: Real App Screenshot (Mac OS Frame)
-              Spans 5 columns.
-              ========================================== */}
-          <div className="project-bento md:col-span-5 relative bg-black/[0.02] dark:bg-white/[0.01] border border-black/15 dark:border-white/5 rounded-[2.5rem] overflow-hidden backdrop-blur-md flex items-center justify-center min-h-[400px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none group">
-            <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            {/* FIX 1: Removed h-5/6 and added `aspect-[16/10]` to make it widescreen */}
-            <div className="w-11/12 aspect-[16/10] border border-black/10 dark:border-white/10 rounded-xl flex flex-col shadow-2xl bg-white dark:bg-black/50 backdrop-blur-xl transform group-hover:scale-[1.02] group-hover:-rotate-1 transition-all duration-500 overflow-hidden relative z-10">
-              
-              {/* Window Top Bar (Traffic Lights) */}
-              <div className="h-8 md:h-10 border-b border-black/5 dark:border-white/5 flex items-center px-4 gap-2 bg-black/[0.02] dark:bg-white/[0.02] shrink-0">
-                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500/80" />
-                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500/80" />
-                <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500/80" />
+                    <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
+                      AI-Powered Mock Interviewer
+                    </h3>
+                    
+                    <p className="text-base md:text-lg text-primary-muted font-normal leading-relaxed mb-6">
+                      Developed a full-stack real-time AI application integrating cutting-edge LLM APIs and custom PDF parsing pipelines to ingest candidate resumes and dynamically generate context-aware, personalized technical interviews with instant feedback.
+                    </p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-wrap items-center gap-3 pt-2">
+                    <a 
+                      href="https://ai-interviewer-app-manoj.vercel.app" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="magnetic-interactive flex items-center gap-2 px-6 py-3 bg-foreground text-background font-bold text-sm rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md"
+                    >
+                      <ExternalLink size={17} />
+                      Live Application
+                    </a>
+                    <a 
+                      href="https://github.com/manojbarmase/ai-interviewer-app" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="magnetic-interactive flex items-center gap-2 px-6 py-3 bg-black/[0.03] dark:bg-white/[0.03] text-foreground font-bold text-sm border border-black/10 dark:border-white/10 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+                    >
+                      <GithubIcon size={17} />
+                      Source Code
+                    </a>
+                  </div>
+                </div>
+
+                {/* Right Col: Interactive Visual Mockup */}
+                <div className="lg:col-span-5 relative bg-black/[0.03] dark:bg-black/40 border border-black/10 dark:border-white/10 rounded-2xl overflow-hidden shadow-2xl group/img aspect-[16/11] flex flex-col">
+                  {/* Window Bar */}
+                  <div className="h-8 border-b border-black/5 dark:border-white/5 flex items-center px-4 gap-2 bg-black/[0.02] dark:bg-white/[0.02] shrink-0">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                    <span className="text-[11px] font-mono text-primary-muted/60 ml-2">ai-interviewer-app-manoj.vercel.app</span>
+                  </div>
+                  <div className="relative flex-1 w-full bg-black/5 dark:bg-black/40 overflow-hidden">
+                    <Image 
+                      src="/Ai-interviewer-app.png"
+                      alt="AI-Powered Mock Interviewer Application Screenshot"
+                      fill
+                      className="object-cover object-top transition-transform duration-500 group-hover/img:scale-105" 
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      quality={95}
+                    />
+                    {/* Floating Telemetry Pill */}
+                    <div className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-emerald-400 text-[11px] font-mono font-semibold shadow-lg">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>Groq LPU • &lt;400ms TTFT</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              
-              {/* FIX 2: Added `object-contain` just in case, but cover works perfectly now with correct aspect ratio */}
-              <div className="relative flex-1 w-full bg-black/5 dark:bg-black/40">
-                <Image 
-                  src="/project-dashboard.png" /* Make sure your image name is correct here */
-                  alt="Enterprise SaaS Dashboard Screenshot"
-                  fill
-                  className="object-cover object-top" 
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  quality={95}
-                />
+
+              {/* Architecture Deep Dive Bento Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6 border-t border-black/10 dark:border-white/5">
+                <div className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2 text-foreground font-bold">
+                        <Zap size={18} className="text-amber-500" />
+                        <span>Groq LPU Acceleration</span>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                        &lt;400ms
+                      </span>
+                    </div>
+                    <p className="text-xs text-primary-muted leading-relaxed font-normal">
+                      Overcame critical conversational latency bottlenecks by migrating execution to Groq LPU, delivering sub-400ms real-time AI generation without conversational stutters.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2 text-foreground font-bold">
+                        <FileText size={18} className="text-blue-500" />
+                        <span>Dynamic CV Ingestion</span>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+                        PDF Parsing
+                      </span>
+                    </div>
+                    <p className="text-xs text-primary-muted leading-relaxed font-normal">
+                      Built custom PDF processing pipelines extracting candidate experiences, proficiencies, and metrics to tailor question difficulty and context dynamically in real-time.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-black/5 dark:border-white/5 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2 text-foreground font-bold">
+                        <ShieldCheck size={18} className="text-rose-500" />
+                        <span>Redis Rate-Limiting</span>
+                      </div>
+                      <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                        10 req/min
+                      </span>
+                    </div>
+                    <p className="text-xs text-primary-muted leading-relaxed font-normal">
+                      Secured serverless endpoints via Redis rate-limiting middleware (10 req/min) to prevent abuse and deployed containerized workflows using Docker and cloud platforms.
+                    </p>
+                  </div>
+                </div>
               </div>
 
-            </div>
-          </div>
-
-          {/* ==========================================
-              BENTO 3, 4, 5: The Extracted Features
-              Long text broken into 3 micro-cards.
-              ========================================== */}
-          <div className="project-bento magnetic-card md:col-span-4 p-8 bg-white/80 dark:bg-white/[0.03] rounded-3xl border border-black/15 dark:border-white/5 group hover:bg-fuchsia-50/50 dark:hover:bg-white/[0.05] transition-all shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-none min-h-[220px]">
-            <Lock className="text-fuchsia-600 dark:text-fuchsia-400 mb-5" size={26} />
-            <h4 className="text-xl font-bold text-foreground mb-3">Secure RESTful API</h4>
-            <p className="text-sm text-primary-muted font-medium leading-relaxed">
-              Developed a highly secure backend infrastructure, ensuring seamless and protected data flow across the entire platform ecosystem.
-            </p>
-          </div>
-
-          <div className="project-bento magnetic-card md:col-span-4 p-8 bg-white/80 dark:bg-white/[0.03] rounded-3xl border border-black/15 dark:border-white/5 group hover:bg-emerald-50/50 dark:hover:bg-white/[0.05] transition-all shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-none min-h-[220px]">
-            <Database className="text-emerald-600 dark:text-emerald-400 mb-5" size={26} />
-            <h4 className="text-xl font-bold text-foreground mb-3">Normalized Schema</h4>
-            <p className="text-sm text-primary-muted font-medium leading-relaxed">
-              Designed an advanced MongoDB database schema specifically structured to handle complex relationships and rapid querying.
-            </p>
-          </div>
-
-          <div className="project-bento magnetic-card md:col-span-4 p-8 bg-white/80 dark:bg-white/[0.03] rounded-3xl border border-black/15 dark:border-white/5 group hover:bg-blue-50/50 dark:hover:bg-white/[0.05] transition-all shadow-[0_4px_20px_rgba(0,0,0,0.06)] dark:shadow-none min-h-[220px]">
-            <Activity className="text-blue-600 dark:text-blue-400 mb-5" size={26} />
-            <h4 className="text-xl font-bold text-foreground mb-3">Real-Time Task States</h4>
-            <p className="text-sm text-primary-muted font-medium leading-relaxed">
-              Engineered highly efficient state management to handle complex task lifecycles and real-time dashboard updates flawlessly.
-            </p>
-          </div>
-
-          {/* ==========================================
-              BENTO 6: Tech Stack Footer
-              ========================================== */}
-          <div className="project-bento md:col-span-12 mt-2 p-6 bg-white/90 dark:bg-white/[0.02] rounded-2xl border border-black/15 dark:border-white/5 flex flex-col md:flex-row md:items-center gap-6 shadow-[0_4px_20px_rgba(0,0,0,0.05)] dark:shadow-none">
-            <div className="flex items-center gap-2 text-foreground font-semibold">
-              <Terminal size={18} className="text-fuchsia-500" />
-              <span className="text-sm md:text-base">MERN Stack Deployed:</span>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {["React.js", "Node.js", "Express", "MongoDB"].map((tech, i) => (
-                <span 
-                  key={i} 
-                  className="px-4 py-2 text-xs md:text-sm font-bold font-mono bg-fuchsia-500/10 text-fuchsia-800 border border-fuchsia-500/20 dark:bg-white/[0.03] dark:text-primary-muted dark:border-white/5 dark:hover:text-fuchsia-400 rounded-xl transition-colors"
-                >
-                  {tech}
+              {/* Technologies Applied */}
+              <div className="mt-5 pt-4 border-t border-black/5 dark:border-white/5 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-semibold text-primary-muted mr-2 flex items-center gap-1.5">
+                  <Terminal size={14} className="text-cyan-500" />
+                  Stack:
                 </span>
-              ))}
+                {["Next.js", "Supabase", "Groq LPU", "Python / Node AI APIs", "Redis (Upstash)", "Docker", "Zod", "Vercel"].map((tech, i) => (
+                  <span 
+                    key={i} 
+                    className="px-3 py-1 text-xs font-mono font-medium rounded-lg bg-black/[0.04] dark:bg-white/[0.03] text-foreground/80 dark:text-primary-muted border border-black/5 dark:border-white/5"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-
+          )}
         </div>
       </div>
     </section>
   );
 }
-
-
-// "use client";
-// import { motion } from "framer-motion";
-// import { ExternalLink } from "lucide-react";
-
-// const GithubIcon = ({ size = 20 }: { size?: number }) => (
-//   <svg
-//     xmlns="http://www.w3.org/2000/svg"
-//     width={size}
-//     height={size}
-//     viewBox="0 0 24 24"
-//     fill="none"
-//     stroke="currentColor"
-//     strokeWidth="2"
-//     strokeLinecap="round"
-//     strokeLinejoin="round"
-//   >
-//     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.03c3.15-.38 6.5-1.4 6.5-7.17A5.05 5.05 0 0 0 19 4.78a4.6 4.6 0 0 0-.1-3.2s-1.3-.4-4.2 1.6a14.2 14.2 0 0 0-7.8 0c-2.9-2-4.2-1.6-4.2-1.6a4.6 4.6 0 0 0-.1 3.2A5.05 5.05 0 0 0 3 7.82c0 5.76 3.35 6.78 6.5 7.16A4.8 4.8 0 0 0 8.5 18v4"></path>
-//   </svg>
-// );
-
-// export default function Projects() {
-//   const project = {
-//     title: "Product Management Software",
-//     description: "Engineered a full-stack project management dashboard designed to streamline task tracking and team collaboration. Developed a highly secure RESTful API backend and designed a normalized MongoDB database schema to handle complex task states and real-time updates efficiently.",
-//     tech: ["React.js", "Node.js", "Express", "MongoDB"],
-//     links: {
-//       github: "#",
-//       live: "#"
-//     }
-//   };
-
-//   return (
-//     <section id="projects" className="relative min-h-screen flex flex-col justify-center px-6 md:px-12 py-24 border-t border-border-subtle/30">
-//       <div className="max-w-5xl w-full mx-auto">
-//         <motion.h2 
-//           initial={{ opacity: 0, y: 20 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           viewport={{ once: true, margin: "-100px" }}
-//           transition={{ duration: 0.6 }}
-//           className="text-3xl md:text-5xl font-bold tracking-tight mb-16"
-//         >
-//           Featured Work.
-//         </motion.h2>
-
-//         <motion.div 
-//           initial={{ opacity: 0, y: 40 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           viewport={{ once: true, margin: "-100px" }}
-//           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-//           className="group relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
-//         >
-//           {/* Abstract Project Visual/Placeholder (Linear aesthetic) */}
-//           <div className="lg:col-span-7 relative h-[300px] md:h-[450px] w-full rounded-2xl overflow-hidden bg-white/[0.02] border border-border-subtle/50 group-hover:border-border-subtle transition-colors duration-500">
-//             <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent" />
-//             {/* Minimalist wireframe illustration */}
-//             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 border border-white/10 rounded-lg flex flex-col shadow-2xl bg-background/50 backdrop-blur-sm">
-//               <div className="h-8 border-b border-white/10 flex items-center px-4 gap-1.5">
-//                 <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-//                 <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-//                 <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-//               </div>
-//               <div className="flex-1 p-4 flex gap-4">
-//                 <div className="w-1/4 h-full border border-white/5 rounded" />
-//                 <div className="flex-1 flex flex-col gap-3">
-//                   <div className="h-10 border border-white/5 rounded w-full" />
-//                   <div className="flex-1 border border-white/5 rounded w-full" />
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* Project Details */}
-//           <div className="lg:col-span-5 flex flex-col justify-center lg:pl-8 z-10">
-//             <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-//               {project.title}
-//             </h3>
-            
-//             <div className="bg-white/[0.03] backdrop-blur-md border border-border-subtle p-6 rounded-xl mb-6 shadow-xl">
-//               <p className="text-primary-muted text-base leading-relaxed">
-//                 {project.description}
-//               </p>
-//             </div>
-
-//             <ul className="flex flex-wrap gap-3 mb-8 font-mono text-sm text-primary-muted/80">
-//               {project.tech.map((tech, i) => (
-//                 <li key={i}>{tech}</li>
-//               ))}
-//             </ul>
-
-//             <div className="flex items-center gap-6">
-//               <a href={project.links.github} target="_blank" rel="noreferrer" className="text-primary-muted hover:text-foreground transition-colors flex items-center gap-2">
-//                 <GithubIcon size={20} />
-//                 <span className="text-sm font-medium">Source</span>
-//               </a>
-//               <a href={project.links.live} target="_blank" rel="noreferrer" className="text-primary-muted hover:text-foreground transition-colors flex items-center gap-2">
-//                 <ExternalLink size={20} />
-//                 <span className="text-sm font-medium">Live Demo</span>
-//               </a>
-//             </div>
-//           </div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
